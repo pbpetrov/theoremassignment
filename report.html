@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Test Report</title>
+    <link href="assets/style.css" rel="stylesheet" type="text/css"/></head>
+  <body onLoad="init()">
+    <script>/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ * You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+
+function toArray(iter) {
+    if (iter === null) {
+        return null;
+    }
+    return Array.prototype.slice.call(iter);
+}
+
+function find(selector, elem) {
+    if (!elem) {
+        elem = document;
+    }
+    return elem.querySelector(selector);
+}
+
+function find_all(selector, elem) {
+    if (!elem) {
+        elem = document;
+    }
+    return toArray(elem.querySelectorAll(selector));
+}
+
+function sort_column(elem) {
+    toggle_sort_states(elem);
+    var colIndex = toArray(elem.parentNode.childNodes).indexOf(elem);
+    var key;
+    if (elem.classList.contains('numeric')) {
+        key = key_num;
+    } else if (elem.classList.contains('result')) {
+        key = key_result;
+    } else {
+        key = key_alpha;
+    }
+    sort_table(elem, key(colIndex));
+}
+
+function show_all_extras() {
+    find_all('.col-result').forEach(show_extras);
+}
+
+function hide_all_extras() {
+    find_all('.col-result').forEach(hide_extras);
+}
+
+function show_extras(colresult_elem) {
+    var extras = colresult_elem.parentNode.nextElementSibling;
+    var expandcollapse = colresult_elem.firstElementChild;
+    extras.classList.remove("collapsed");
+    expandcollapse.classList.remove("expander");
+    expandcollapse.classList.add("collapser");
+}
+
+function hide_extras(colresult_elem) {
+    var extras = colresult_elem.parentNode.nextElementSibling;
+    var expandcollapse = colresult_elem.firstElementChild;
+    extras.classList.add("collapsed");
+    expandcollapse.classList.remove("collapser");
+    expandcollapse.classList.add("expander");
+}
+
+function show_filters() {
+    var filter_items = document.getElementsByClassName('filter');
+    for (var i = 0; i < filter_items.length; i++)
+        filter_items[i].hidden = false;
+}
+
+function add_collapse() {
+    // Add links for show/hide all
+    var resulttable = find('table#results-table');
+    var showhideall = document.createElement("p");
+    showhideall.innerHTML = '<a href="javascript:show_all_extras()">Show all details</a> / ' +
+                            '<a href="javascript:hide_all_extras()">Hide all details</a>';
+    resulttable.parentElement.insertBefore(showhideall, resulttable);
+
+    // Add show/hide link to each result
+    find_all('.col-result').forEach(function(elem) {
+        var collapsed = get_query_parameter('collapsed') || 'Passed';
+        var extras = elem.parentNode.nextElementSibling;
+        var expandcollapse = document.createElement("span");
+        if (extras.classList.contains("collapsed")) {
+            expandcollapse.classList.add("expander")
+        } else if (collapsed.includes(elem.innerHTML)) {
+            extras.classList.add("collapsed");
+            expandcollapse.classList.add("expander");
+        } else {
+            expandcollapse.classList.add("collapser");
+        }
+        elem.appendChild(expandcollapse);
+
+        elem.addEventListener("click", function(event) {
+            if (event.currentTarget.parentNode.nextElementSibling.classList.contains("collapsed")) {
+                show_extras(event.currentTarget);
+            } else {
+                hide_extras(event.currentTarget);
+            }
+        });
+    })
+}
+
+function get_query_parameter(name) {
+    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}
+
+function init () {
+    reset_sort_headers();
+
+    add_collapse();
+
+    show_filters();
+
+    sort_column(find('.initial-sort'));
+
+    find_all('.sortable').forEach(function(elem) {
+        elem.addEventListener("click",
+                              function(event) {
+                                  sort_column(elem);
+                              }, false)
+    });
+
+};
+
+function sort_table(clicked, key_func) {
+    var rows = find_all('.results-table-row');
+    var reversed = !clicked.classList.contains('asc');
+    var sorted_rows = sort(rows, key_func, reversed);
+    /* Whole table is removed here because browsers acts much slower
+     * when appending existing elements.
+     */
+    var thead = document.getElementById("results-table-head");
+    document.getElementById('results-table').remove();
+    var parent = document.createElement("table");
+    parent.id = "results-table";
+    parent.appendChild(thead);
+    sorted_rows.forEach(function(elem) {
+        parent.appendChild(elem);
+    });
+    document.getElementsByTagName("BODY")[0].appendChild(parent);
+}
+
+function sort(items, key_func, reversed) {
+    var sort_array = items.map(function(item, i) {
+        return [key_func(item), i];
+    });
+
+    sort_array.sort(function(a, b) {
+        var key_a = a[0];
+        var key_b = b[0];
+
+        if (key_a == key_b) return 0;
+
+        if (reversed) {
+            return (key_a < key_b ? 1 : -1);
+        } else {
+            return (key_a > key_b ? 1 : -1);
+        }
+    });
+
+    return sort_array.map(function(item) {
+        var index = item[1];
+        return items[index];
+    });
+}
+
+function key_alpha(col_index) {
+    return function(elem) {
+        return elem.childNodes[1].childNodes[col_index].firstChild.data.toLowerCase();
+    };
+}
+
+function key_num(col_index) {
+    return function(elem) {
+        return parseFloat(elem.childNodes[1].childNodes[col_index].firstChild.data);
+    };
+}
+
+function key_result(col_index) {
+    return function(elem) {
+        var strings = ['Error', 'Failed', 'Rerun', 'XFailed', 'XPassed',
+                       'Skipped', 'Passed'];
+        return strings.indexOf(elem.childNodes[1].childNodes[col_index].firstChild.data);
+    };
+}
+
+function reset_sort_headers() {
+    find_all('.sort-icon').forEach(function(elem) {
+        elem.parentNode.removeChild(elem);
+    });
+    find_all('.sortable').forEach(function(elem) {
+        var icon = document.createElement("div");
+        icon.className = "sort-icon";
+        icon.textContent = "vvv";
+        elem.insertBefore(icon, elem.firstChild);
+        elem.classList.remove("desc", "active");
+        elem.classList.add("asc", "inactive");
+    });
+}
+
+function toggle_sort_states(elem) {
+    //if active, toggle between asc and desc
+    if (elem.classList.contains('active')) {
+        elem.classList.toggle('asc');
+        elem.classList.toggle('desc');
+    }
+
+    //if inactive, reset all other functions and add ascending active
+    if (elem.classList.contains('inactive')) {
+        reset_sort_headers();
+        elem.classList.remove('inactive');
+        elem.classList.add('active');
+    }
+}
+
+function is_all_rows_hidden(value) {
+  return value.hidden == false;
+}
+
+function filter_table(elem) {
+    var outcome_att = "data-test-result";
+    var outcome = elem.getAttribute(outcome_att);
+    class_outcome = outcome + " results-table-row";
+    var outcome_rows = document.getElementsByClassName(class_outcome);
+
+    for(var i = 0; i < outcome_rows.length; i++){
+        outcome_rows[i].hidden = !elem.checked;
+    }
+
+    var rows = find_all('.results-table-row').filter(is_all_rows_hidden);
+    var all_rows_hidden = rows.length == 0 ? true : false;
+    var not_found_message = document.getElementById("not-found-message");
+    not_found_message.hidden = !all_rows_hidden;
+}
+</script>
+    <h1>report.html</h1>
+    <p>Report generated on 26-Nov-2020 at 12:12:05 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v2.1.1</p>
+    <h2>Environment</h2>
+    <table id="environment">
+      <tr>
+        <td>Packages</td>
+        <td>{"pluggy": "0.13.1", "py": "1.9.0", "pytest": "6.1.2"}</td></tr>
+      <tr>
+        <td>Platform</td>
+        <td>Windows-10-10.0.18362-SP0</td></tr>
+      <tr>
+        <td>Plugins</td>
+        <td>{"allure-pytest": "2.8.13", "html": "2.1.1", "metadata": "1.9.0", "ordering": "0.6"}</td></tr>
+      <tr>
+        <td>Python</td>
+        <td>3.8.2</td></tr></table>
+    <h2>Summary</h2>
+    <p>15 tests ran in 152.71 seconds. </p>
+    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="passed">15 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="failed">0 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
+    <h2>Results</h2>
+    <table id="results-table">
+      <thead id="results-table-head">
+        <tr>
+          <th class="sortable result initial-sort" col="result">Result</th>
+          <th class="sortable" col="name">Test</th>
+          <th class="sortable numeric" col="duration">Duration</th>
+          <th>Links</th></tr>
+        <tr hidden="true" id="not-found-message">
+          <th colspan="4">No results found. Try to check the filters</th></tr></thead>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">tests/test_sanity_suite.py::CreateAccountTest::test_Go_To_SignIn_Page</td>
+          <td class="col-duration">1.84</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log call-------------------------------- <br/>[32mINFO    [0m SignInPage:selenium_driver.py:53 Element found with locator: //a[contains(text(),&#x27;Sign in&#x27;)] and locator type: xpath
+[32mINFO    [0m SignInPage:selenium_driver.py:63 Clicked on element with locator: //a[contains(text(),&#x27;Sign in&#x27;)] locatorType: xpath
+[32mINFO    [0m CreateAccountTest:create_account_test.py:29 The &quot;Login - My Store&quot; page has loaded successfully!<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">tests/test_sanity_suite.py::CreateAccountTest::test_Enter_New_Account_Email</td>
+          <td class="col-duration">20.32</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log call-------------------------------- <br/>[32mINFO    [0m CreateAccountPage:selenium_driver.py:53 Element found with locator: #email_create and locator type: css
+[32mINFO    [0m CreateAccountPage:selenium_driver.py:53 Element found with locator: #email_create and locator type: css
+[32mINFO    [0m CreateAccountPage:selenium_driver.py:113 Sending ocfci@mail.com to element with locator #email_create
+[32mINFO    [0m CreateAccountPage:selenium_driver.py:53 Element found with locator: //button[@id=&#x27;SubmitCreate&#x27;] and locator type: xpath
+[32mINFO    [0m CreateAccountPage:selenium_driver.py:63 Clicked on element with locator: //button[@id=&#x27;SubmitCreate&#x27;] locatorType: xpath
+[32mINFO    [0m CreateAccountPage:selenium_driver.py:146 Waiting for maximum :: 10 :: seconds for element to be clickable
+[32mINFO    [0m CreateAccountPage:selenium_driver.py:153 Element appeared on the web page
+[32mINFO    [0m CreateAccountPage:selenium_driver.py:53 Element found with locator: //h3[contains(text(),&#x27;Your personal information&#x27;)] and locator type: xpath
+[32mINFO    [0m CreateAccountTest:create_account_test.py:41 The &quot;Login - My Store&quot; page has loaded successfully!<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">tests/test_sanity_suite.py::CreateAccountTest::test_Register_New_Account</td>
+          <td class="col-duration">28.85</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log call-------------------------------- <br/>[32mINFO    [0m CreateAccountPage:selenium_driver.py:53 Element found with locator: //input[@id=&#x27;customer_firstname&#x27;] and locator type: xpath
+[32mINFO    [0m CreateAccountPage:selenium_driver.py:113 Sending Duffy to element with locator //input[@id=&#x27;customer_firstname&#x27;]
+[32mINFO    [0m CreateAccountPage:selenium_driver.py:53 Element found with locator: //input[@id=&#x27;customer_lastname&#x27;] and locator type: xpath
+[32mINFO    [0m CreateAccountPage:selenium_driver.py:113 Sending Smith to element with locator //input[@id=&#x27;customer_lastname&#x27;]
+[32mINFO    [0m CreateAccountPage:selenium_driver.py:53 Element found with locator: //input[@id=&#x27;passwd&#x27;] and locator type: xpath
+[31m[1mERROR   [0m CreateAccountPage:selenium_driver.py:116 Cannot send data to the element with locator: //input[@id=&#x27;passwd&#x27;] locatorType: xpath
+[32mINFO    [0m CreateAccountPage:selenium_driver.py:53 Element found with locator: //input[@id=&#x27;address1&#x27;] and locator type: xpath
+[32mINFO    [0m CreateAccountPage:selenium_driver.py:113 Sending 123 West Oak Rd to element with locator //input[@id=&#x27;address1&#x27;]
+[32mINFO    [0m CreateAccountPage:selenium_driver.py:53 Element found with locator: //input[@id=&#x27;city&#x27;] and locator type: xpath
+[32mINFO    [0m CreateAccountPage:selenium_driver.py:113 Sending Sunnyvale to element with locator //input[@id=&#x27;city&#x27;]
+[32mINFO    [0m CreateAccountPage:selenium_driver.py:53 Element found with locator: //select[@id=&#x27;id_state&#x27;] and locator type: xpath
+[32mINFO    [0m CreateAccountPage:selenium_driver.py:53 Element found with locator: //input[@id=&#x27;postcode&#x27;] and locator type: xpath
+[31m[1mERROR   [0m CreateAccountPage:selenium_driver.py:116 Cannot send data to the element with locator: //input[@id=&#x27;postcode&#x27;] locatorType: xpath
+[32mINFO    [0m CreateAccountPage:selenium_driver.py:53 Element found with locator: //input[@id=&#x27;phone_mobile&#x27;] and locator type: xpath
+[31m[1mERROR   [0m CreateAccountPage:selenium_driver.py:116 Cannot send data to the element with locator: //input[@id=&#x27;phone_mobile&#x27;] locatorType: xpath
+[32mINFO    [0m CreateAccountPage:selenium_driver.py:53 Element found with locator: //input[@id=&#x27;alias&#x27;] and locator type: xpath
+[32mINFO    [0m CreateAccountPage:selenium_driver.py:113 Sending ShoppingAddress to element with locator //input[@id=&#x27;alias&#x27;]
+[32mINFO    [0m CreateAccountPage:selenium_driver.py:53 Element found with locator: //button[@id=&#x27;submitAccount&#x27;] and locator type: xpath
+[32mINFO    [0m CreateAccountPage:selenium_driver.py:63 Clicked on element with locator: //button[@id=&#x27;submitAccount&#x27;] locatorType: xpath
+[32mINFO    [0m CreateAccountPage:selenium_driver.py:53 Element found with locator: //span[contains(text(),&#x27;Order history and details&#x27;)] and locator type: xpath
+[32mINFO    [0m CreateAccountTest:create_account_test.py:55 The new account is created successfully!<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">tests/test_sanity_suite.py::CreateAccountTest::test_Logout_From_Account</td>
+          <td class="col-duration">5.99</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log call-------------------------------- <br/>[32mINFO    [0m SignInPage:selenium_driver.py:53 Element found with locator: Sign out and locator type: link
+[32mINFO    [0m SignInPage:selenium_driver.py:63 Clicked on element with locator: Sign out locatorType: link
+[32mINFO    [0m SignInPage:selenium_driver.py:53 Element found with locator: //a[contains(text(),&#x27;Sign in&#x27;)] and locator type: xpath
+[32mINFO    [0m CreateAccountTest:create_account_test.py:66 The log out was successfull!<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">tests/test_sanity_suite.py::SigninTests::test_Go_To_SignIn_Page</td>
+          <td class="col-duration">1.49</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log call-------------------------------- <br/>[32mINFO    [0m SignInPage:selenium_driver.py:53 Element found with locator: //a[contains(text(),&#x27;Sign in&#x27;)] and locator type: xpath
+[32mINFO    [0m SignInPage:selenium_driver.py:63 Clicked on element with locator: //a[contains(text(),&#x27;Sign in&#x27;)] locatorType: xpath
+[32mINFO    [0m SigninTests:signin_test.py:30 The &quot;Login - My Store&quot; page has loaded successfully!<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">tests/test_sanity_suite.py::SigninTests::test_Login_To_Account</td>
+          <td class="col-duration">1.63</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log call-------------------------------- <br/>[32mINFO    [0m SignInPage:selenium_driver.py:53 Element found with locator: #email and locator type: css
+[32mINFO    [0m SignInPage:selenium_driver.py:113 Sending test_abc@mail.com to element with locator #email
+[32mINFO    [0m SignInPage:selenium_driver.py:53 Element found with locator: #passwd and locator type: css
+[32mINFO    [0m SignInPage:selenium_driver.py:113 Sending 123321 to element with locator #passwd
+[32mINFO    [0m SignInPage:selenium_driver.py:53 Element found with locator: //button[@id=&#x27;SubmitLogin&#x27;] and locator type: xpath
+[32mINFO    [0m SignInPage:selenium_driver.py:63 Clicked on element with locator: //button[@id=&#x27;SubmitLogin&#x27;] locatorType: xpath
+[32mINFO    [0m SignInPage:selenium_driver.py:53 Element found with locator: //span[contains(text(),&#x27;Order history and details&#x27;)] and locator type: xpath
+[32mINFO    [0m SigninTests:signin_test.py:42 The login was successful!<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">tests/test_sanity_suite.py::SigninTests::test_Logout_From_Account</td>
+          <td class="col-duration">1.39</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log call-------------------------------- <br/>[32mINFO    [0m SignInPage:selenium_driver.py:53 Element found with locator: Sign out and locator type: link
+[32mINFO    [0m SignInPage:selenium_driver.py:63 Clicked on element with locator: Sign out locatorType: link
+[32mINFO    [0m SignInPage:selenium_driver.py:53 Element found with locator: //a[contains(text(),&#x27;Sign in&#x27;)] and locator type: xpath
+[32mINFO    [0m SigninTests:signin_test.py:53 The login was successful!<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">tests/test_sanity_suite.py::BrowseClothesDepartments::test_Browse_Women</td>
+          <td class="col-duration">6.53</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log call-------------------------------- <br/>[32mINFO    [0m SignInPage:selenium_driver.py:53 Element found with locator: //a[contains(text(),&#x27;Sign in&#x27;)] and locator type: xpath
+[32mINFO    [0m SignInPage:selenium_driver.py:63 Clicked on element with locator: //a[contains(text(),&#x27;Sign in&#x27;)] locatorType: xpath
+[32mINFO    [0m SignInPage:selenium_driver.py:53 Element found with locator: #email and locator type: css
+[32mINFO    [0m SignInPage:selenium_driver.py:113 Sending test_abc@mail.com to element with locator #email
+[32mINFO    [0m SignInPage:selenium_driver.py:53 Element found with locator: #passwd and locator type: css
+[32mINFO    [0m SignInPage:selenium_driver.py:113 Sending 123321 to element with locator #passwd
+[32mINFO    [0m SignInPage:selenium_driver.py:53 Element found with locator: //button[@id=&#x27;SubmitLogin&#x27;] and locator type: xpath
+[32mINFO    [0m SignInPage:selenium_driver.py:63 Clicked on element with locator: //button[@id=&#x27;SubmitLogin&#x27;] locatorType: xpath
+[32mINFO    [0m HomePage:selenium_driver.py:53 Element found with locator: Women and locator type: link
+[32mINFO    [0m HomePage:selenium_driver.py:63 Clicked on element with locator: Women locatorType: link
+[32mINFO    [0m BrowseClothesDepartments:browse_clothes_departments_test.py:34 The &quot;Women&quot; section loads successfully!<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">tests/test_sanity_suite.py::BrowseClothesDepartments::test_Browse_Dresses</td>
+          <td class="col-duration">3.38</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log call-------------------------------- <br/>[32mINFO    [0m HomePage:selenium_driver.py:53 Element found with locator: Dresses and locator type: link
+[32mINFO    [0m HomePage:selenium_driver.py:63 Clicked on element with locator: Dresses locatorType: link
+[32mINFO    [0m BrowseClothesDepartments:browse_clothes_departments_test.py:44 The &quot;Dresses&quot; section loads successfully!<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">tests/test_sanity_suite.py::BrowseClothesDepartments::test_Browse_TShirts</td>
+          <td class="col-duration">2.96</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log call-------------------------------- <br/>[32mINFO    [0m HomePage:selenium_driver.py:53 Element found with locator: //div[@id=&#x27;block_top_menu&#x27;]//li[3]/a[@title=&#x27;T-shirts&#x27;] and locator type: xpath
+[32mINFO    [0m HomePage:selenium_driver.py:63 Clicked on element with locator: //div[@id=&#x27;block_top_menu&#x27;]//li[3]/a[@title=&#x27;T-shirts&#x27;] locatorType: xpath
+[32mINFO    [0m BrowseClothesDepartments:browse_clothes_departments_test.py:54 The &quot;T-shirts&quot; section loads successfully!<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">tests/test_sanity_suite.py::BrowseClothesDepartments::test_searchItem</td>
+          <td class="col-duration">12.86</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log call-------------------------------- <br/>[32mINFO    [0m HomePage:selenium_driver.py:53 Element found with locator: //input[@id=&#x27;search_query_top&#x27;] and locator type: xpath
+[32mINFO    [0m HomePage:selenium_driver.py:113 Sending Blouse to element with locator //input[@id=&#x27;search_query_top&#x27;]
+[32mINFO    [0m HomePage:selenium_driver.py:53 Element found with locator: //input[@id=&#x27;search_query_top&#x27;] and locator type: xpath
+[32mINFO    [0m HomePage:selenium_driver.py:124 Pressed ENTER for  element with locator //input[@id=&#x27;search_query_top&#x27;] locatorType: xpath
+[32mINFO    [0m HomePage:selenium_driver.py:53 Element found with locator: //div[@class=&#x27;top-pagination-content clearfix&#x27;]//div[contains(text(),&#x27;Showing 1 - 1 of 1 item&#x27;)] and locator type: xpath
+[32mINFO    [0m HomePage:selenium_driver.py:53 Element found with locator: //a[@title=&#x27;Blouse&#x27; and contains(text(),&#x27;Blouse&#x27;)] and locator type: xpath
+[32mINFO    [0m BrowseClothesDepartments:browse_clothes_departments_test.py:66 The search returns correct result!<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">tests/test_sanity_suite.py::PurchaseItemTests::test_Add_Item_To_Cart</td>
+          <td class="col-duration">6.99</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log call-------------------------------- <br/>[32mINFO    [0m SignInPage:selenium_driver.py:53 Element found with locator: //a[contains(text(),&#x27;Sign in&#x27;)] and locator type: xpath
+[32mINFO    [0m SignInPage:selenium_driver.py:63 Clicked on element with locator: //a[contains(text(),&#x27;Sign in&#x27;)] locatorType: xpath
+[32mINFO    [0m SignInPage:selenium_driver.py:53 Element found with locator: #email and locator type: css
+[32mINFO    [0m SignInPage:selenium_driver.py:113 Sending test_abc@mail.com to element with locator #email
+[32mINFO    [0m SignInPage:selenium_driver.py:53 Element found with locator: #passwd and locator type: css
+[32mINFO    [0m SignInPage:selenium_driver.py:113 Sending 123321 to element with locator #passwd
+[32mINFO    [0m SignInPage:selenium_driver.py:53 Element found with locator: //button[@id=&#x27;SubmitLogin&#x27;] and locator type: xpath
+[32mINFO    [0m SignInPage:selenium_driver.py:63 Clicked on element with locator: //button[@id=&#x27;SubmitLogin&#x27;] locatorType: xpath
+[32mINFO    [0m HomePage:selenium_driver.py:53 Element found with locator: //input[@id=&#x27;search_query_top&#x27;] and locator type: xpath
+[32mINFO    [0m HomePage:selenium_driver.py:113 Sending Blouse to element with locator //input[@id=&#x27;search_query_top&#x27;]
+[32mINFO    [0m HomePage:selenium_driver.py:53 Element found with locator: //input[@id=&#x27;search_query_top&#x27;] and locator type: xpath
+[32mINFO    [0m HomePage:selenium_driver.py:124 Pressed ENTER for  element with locator //input[@id=&#x27;search_query_top&#x27;] locatorType: xpath
+[32mINFO    [0m ClothingItemPage:selenium_driver.py:53 Element found with locator: //a[@class=&#x27;product-name&#x27; and @title=&#x27;Blouse&#x27;] and locator type: xpath
+[32mINFO    [0m ClothingItemPage:selenium_driver.py:63 Clicked on element with locator: //a[@class=&#x27;product-name&#x27; and @title=&#x27;Blouse&#x27;] locatorType: xpath
+[32mINFO    [0m ClothingItemPage:selenium_driver.py:53 Element found with locator: //span[contains(text(),&#x27;Add to cart&#x27;)] and locator type: xpath
+[32mINFO    [0m ClothingItemPage:selenium_driver.py:63 Clicked on element with locator: //span[contains(text(),&#x27;Add to cart&#x27;)] locatorType: xpath
+[32mINFO    [0m ClothingItemPage:selenium_driver.py:53 Element found with locator: //span[contains(text(),&#x27;There is 1 item in your cart.&#x27;)] and locator type: xpath
+[32mINFO    [0m PurchaseItemTests:purchase_item_test.py:39 The cart content is correct.<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">tests/test_sanity_suite.py::PurchaseItemTests::test_View_Cart_Summary</td>
+          <td class="col-duration">1.77</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log call-------------------------------- <br/>[32mINFO    [0m ClothingItemPage:selenium_driver.py:53 Element found with locator: //div[@class=&#x27;button-container&#x27;]//i[@class=&#x27;icon-chevron-right right&#x27;] and locator type: xpath
+[32mINFO    [0m ClothingItemPage:selenium_driver.py:63 Clicked on element with locator: //div[@class=&#x27;button-container&#x27;]//i[@class=&#x27;icon-chevron-right right&#x27;] locatorType: xpath
+[32mINFO    [0m ClothingItemPage:selenium_driver.py:53 Element found with locator: //span[@id=&#x27;total_price&#x27; and contains(text(),&#x27;$29.00&#x27;)] and locator type: xpath
+[32mINFO    [0m PurchaseItemTests:purchase_item_test.py:49 The cart summary/total price is correct<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">tests/test_sanity_suite.py::PurchaseItemTests::test_GoToConfirmAddress</td>
+          <td class="col-duration">0.99</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log call-------------------------------- <br/>[32mINFO    [0m ClothingItemPage:selenium_driver.py:53 Element found with locator: //a[@class=&#x27;button btn btn-default standard-checkout button-medium&#x27;] and locator type: xpath
+[32mINFO    [0m ClothingItemPage:selenium_driver.py:63 Clicked on element with locator: //a[@class=&#x27;button btn btn-default standard-checkout button-medium&#x27;] locatorType: xpath
+[32mINFO    [0m ClothingItemPage:selenium_driver.py:53 Element found with locator: //h1[contains(text(),&#x27;Addresses&#x27;)] and locator type: xpath
+[32mINFO    [0m PurchaseItemTests:purchase_item_test.py:60 The address page is loaded.<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">tests/test_sanity_suite.py::PurchaseItemTests::test_CompleteTheOrder</td>
+          <td class="col-duration">4.29</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log call-------------------------------- <br/>[32mINFO    [0m ClothingItemPage:selenium_driver.py:53 Element found with locator: //button[@name=&#x27;processAddress&#x27;] and locator type: xpath
+[32mINFO    [0m ClothingItemPage:selenium_driver.py:63 Clicked on element with locator: //button[@name=&#x27;processAddress&#x27;] locatorType: xpath
+[32mINFO    [0m ClothingItemPage:selenium_driver.py:53 Element found with locator: //input[@id=&#x27;cgv&#x27;] and locator type: xpath
+[32mINFO    [0m ClothingItemPage:selenium_driver.py:63 Clicked on element with locator: //input[@id=&#x27;cgv&#x27;] locatorType: xpath
+[32mINFO    [0m ClothingItemPage:selenium_driver.py:53 Element found with locator: //button[@name=&#x27;processCarrier&#x27;] and locator type: xpath
+[32mINFO    [0m ClothingItemPage:selenium_driver.py:63 Clicked on element with locator: //button[@name=&#x27;processCarrier&#x27;] locatorType: xpath
+[32mINFO    [0m ClothingItemPage:selenium_driver.py:53 Element found with locator: //a[@class=&#x27;bankwire&#x27;] and locator type: xpath
+[32mINFO    [0m ClothingItemPage:selenium_driver.py:63 Clicked on element with locator: //a[@class=&#x27;bankwire&#x27;] locatorType: xpath
+[32mINFO    [0m ClothingItemPage:selenium_driver.py:53 Element found with locator: //button[@class=&#x27;button btn btn-default button-medium&#x27;] and locator type: xpath
+[32mINFO    [0m ClothingItemPage:selenium_driver.py:63 Clicked on element with locator: //button[@class=&#x27;button btn btn-default button-medium&#x27;] locatorType: xpath
+[32mINFO    [0m ClothingItemPage:selenium_driver.py:53 Element found with locator: //strong[contains(text(),&#x27;Your order on My Store is complete.&#x27;)] and locator type: xpath
+[32mINFO    [0m PurchaseItemTests:purchase_item_test.py:74 The Order is placed successfully.<br/></div></td></tr></tbody></table></body></html>
