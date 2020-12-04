@@ -1,0 +1,22 @@
+Known Issues:
+
+base.selenium_driver.sendKeys 
+
+Reports failure with some elements on the NewAccountInfo page(password, zip, mobile phone). 
+The data is being filled in the text boxes, but the method reportsa fail and logs a fail in
+the automation log for these elements.
+
+
+
+Future Improvements:
+
+Improve framework architecture.
+Move all locators in a single class
+Secure login credentials
+Use files to load test date from. 
+Clean some errors in the terminal during execution.
+Include more verification steps in the tests.
+Include more negative tests.
+Break down the tests so that one test does not take more than X sec.(consult with the team).
+
+ 

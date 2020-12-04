@@ -8,7 +8,7 @@
 from selenium.webdriver.common.by import By
 from traceback import print_stack
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support import expected_conditions as ec
 from selenium.common.exceptions import *
 import utilities.custom_logger as cl
 import logging
@@ -17,6 +17,7 @@ import os
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
+
 
 class SeleniumDriver():
     log = cl.customLogger(logging.DEBUG)
@@ -63,7 +64,7 @@ class SeleniumDriver():
             self.log.info("Clicked on element with locator: " + locator + " locatorType: " + locatorType)
         except:
             self.log.info("Cannot click on the element with locator: " + locator + " locatorType: " + locatorType)
-            #print_stack()
+            # print_stack()
 
     # returns the title of the current page
     def getTitle(self):
@@ -103,18 +104,18 @@ class SeleniumDriver():
             self.log.info("Screenshot saved to directory: " + destinationFile)
         except:
             self.log.error("Exception Occurred")
-            #print_stack()
+            # print_stack()
 
     # Finds object by locator and locator type and types in it;
     def sendKeys(self, data, locator, locatorType="id"):
         try:
             element = self.getElement(locator, locatorType)
             element.send_keys(data)
-            self.log.info("Sending " + data + " to element with locator " + locator )
-            #self.log.info("Sent data to element with locator: " + locator + " locatorType: " + locatorType)
+            self.log.info("Sending " + data + " to element with locator " + locator)
+            # self.log.info("Sent data to element with locator: " + locator + " locatorType: " + locatorType)
         except:
             self.log.error("Cannot send data to the element with locator: " + locator + " locatorType: " + locatorType)
-            #print_stack()
+            # print_stack()
 
     # Finds object by locator and locator type and types in it;
     def sendEnterKey(self, locator, locatorType="id"):
@@ -124,7 +125,7 @@ class SeleniumDriver():
             self.log.info("Pressed ENTER for " + " element with locator " + locator + " locatorType: " + locatorType)
         except:
             self.log.error("Cannot press enter for element with locator: " + locator + " locatorType: " + locatorType)
-            #print_stack()
+            # print_stack()
 
     # Checks if the element is loaded
     def isElementPresent(self, locator, locatorType="id"):
@@ -149,11 +150,11 @@ class SeleniumDriver():
                                  ignored_exceptions=[NoSuchElementException,
                                                      ElementNotVisibleException,
                                                      ElementNotSelectableException])
-            element = wait.until(EC.element_to_be_clickable((byType, locator)))
+            element = wait.until(ec.element_to_be_clickable((byType, locator)))
             self.log.info("Element appeared on the web page")
         except:
             self.log.error("Element not appeared on the web page")
-            #print_stack()
+            # print_stack()
         return element
 
     # Hovers over an object and clicks on a child object

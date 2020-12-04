@@ -2,34 +2,32 @@
 # Objects on the SignIn pages
 #############################
 
-from utilities.generate_random_string import randomWord as random
-from base.selenium_driver import SeleniumDriver
-import time
-from selenium.webdriver.common.keys import Keys
-import  utilities.custom_logger as cl
 import logging
 
-class SignInPage(SeleniumDriver):
+import utilities.custom_logger as cl
+from base.selenium_driver import SeleniumDriver
 
+
+class SignInPage(SeleniumDriver):
     log = cl.customLogger(logging.DEBUG)
 
     def __init__(self, driver):
         super().__init__(driver)
         self.driver = driver
 
-# TEST ACCOUNT
+    # TEST ACCOUNT
     email = "test_abc@mail.com"
     password = "123321"
 
-# LOCATORS
-    _sign_in_link = "//a[contains(text(),'Sign in')]" # xpath
-    _login_email = "#email" # css
-    _login_pass = "#passwd" # css
-    _login_button = "//button[@id='SubmitLogin']" #xpath
-    _user_order_history = "//span[contains(text(),'Order history and details')]" # xpath
-    _sign_out_link = "Sign out" #link
+    # LOCATORS
+    _sign_in_link = "//a[contains(text(),'Sign in')]"  # xpath
+    _login_email = "#email"  # css
+    _login_pass = "#passwd"  # css
+    _login_button = "//button[@id='SubmitLogin']"  # xpath
+    _user_order_history = "//span[contains(text(),'Order history and details')]"  # xpath
+    _sign_out_link = "Sign out"  # link
 
-# ACTIONS WITH PAGE OBJECTS
+    # ACTIONS WITH PAGE OBJECTS
 
     def clickSignInLink(self):
         self.elementClick(self._sign_in_link, "xpath")
@@ -60,6 +58,3 @@ class SignInPage(SeleniumDriver):
     def verifySuccessfulLogOut(self):
         result = self.isElementPresent(self._sign_in_link, "xpath")
         return result
-
-
-

@@ -4,5 +4,5 @@
 #############################################
 
 class WebSiteUnderTest():
-   # Base URL
-   baseURL = "http://automationpractice.com/index.php"
+    # Base URL
+    baseURL = "http://automationpractice.com/index.php"

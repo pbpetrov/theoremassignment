@@ -7,6 +7,7 @@
 from selenium import webdriver
 from configfiles.environmentSettings import WebSiteUnderTest as wut
 
+
 class WebDriverFactory():
 
     def __init__(self, browser):
@@ -14,12 +15,12 @@ class WebDriverFactory():
 
     def getWebDriverInstance(self):
 
-#       Get WebDriver Instance based on the browser configuration
+        #       Get WebDriver Instance based on the browser configuration
         baseURL = wut.baseURL
         if self.browser == "chrome":
             driver = webdriver.Chrome()
         else:
-            raise ("Configure your browser in base/web_driver_generator.py")
+            raise Exception("Configure your browser in base/web_driver_generator.py")
 
         # Setting Driver Implicit Time out for An Element
         driver.implicitly_wait(3)

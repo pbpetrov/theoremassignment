@@ -1,0 +1,64 @@
+Deliverables:
+
+base/ 
+Contains base classes for the framework
+
+base/selenium_driver.py
+Contains help methods based on the generic SeleniumWebDriver 
+
+base/web_driver_generator
+Contains methods for creating WebDriver instances based on the browser choice. Currently only Chrome is configured. 
+
+configfiles/
+Holds files with global parameters used in the tests. 
+
+pages/
+Contains the page mapping files.
+
+screenshots/
+Destination folder for the getScreenshot method
+
+test_data/
+Location for files holding input data that is to be used in the tests.
+
+tests/
+Contains all test scenarios.
+
+utilities/
+Contains supporting python methods. 
+
+custom_logger
+Logs all testing actions in automation_log file.
+ 
+generate_random_string
+Generates random string by provided string length. 
+
+read_csv_data
+Loads a csv file rows to list
+
+
+Known Issues:
+
+base.selenium_driver.sendKeys: 
+
+Reports a failure to locate some elements on the “Create An Account” page (password, zip, mobile phone). 
+The data is being filled in the text boxes, but the method reports a fail and logs a fail in the automation_log for these elements. Despite of that, the action is completed successfully and the test passes. 
+
+
+
+Future Planned Improvements:
+
+1. Refactor the tests so that there is one automated test per test scenario.
+2. Improve framework architecture.
+3. Improve framework logging.
+4. Add comment for every method.
+5. Move all locators in a single class
+6. Secure login credentials
+7. Use files to load test date from.
+8. Use the screenshot method to provide more information when a test fails. 
+9. Clean some errors in the terminal during execution.
+10. Include more verification steps in the tests.
+11. Include more negative tests.
+12. Break down the tests so that one test does not take more than X sec.(consult with the team).
+
+ 

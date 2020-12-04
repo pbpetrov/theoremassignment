@@ -6,15 +6,13 @@ import unittest
 import pytest
 import utilities.custom_logger as cl
 import logging
-import time
 
 
 @pytest.mark.usefixtures("oneTimeSetUp", "setUp")
 class PurchaseItemTests(unittest.TestCase):
-
     log = cl.customLogger(logging.DEBUG)
 
-    #Class Level Setup definig the lp object for the NavigationPage class
+    #   Class Level Setup defining the lp object for the NavigationPage class
     @pytest.fixture(autouse=True)
     def classSetup(self, oneTimeSetUp):
         self.hp = home_page.HomePage(self.driver)
@@ -22,8 +20,7 @@ class PurchaseItemTests(unittest.TestCase):
         self.cap = create_account_page.CreateAccountPage(self.driver)
         self.cip = clothing_item_page.ClothingItemPage(self.driver)
 
-
-# TEST CASES:
+    # TEST CASES:
     @pytest.mark.run(order=12)
     def test_Add_Item_To_Cart(self):
         self.sip.clickSignInLink()
@@ -34,8 +31,8 @@ class PurchaseItemTests(unittest.TestCase):
         self.cip.openItem()
         self.cip.addToCart()
         result = self.cip.verifyCartContent()
-        assert result==True
-        if result==True:
+        assert result == True
+        if result:
             self.log.info("The cart content is correct.")
         else:
             self.log.error("The cart content is not correct")
@@ -44,8 +41,8 @@ class PurchaseItemTests(unittest.TestCase):
     def test_View_Cart_Summary(self):
         self.cip.proceedToCartSummary()
         result = self.cip.verifyCartSummary()
-        assert result==True
-        if result==True:
+        assert result == True
+        if result:
             self.log.info("The cart summary/total price is correct")
         else:
             self.log.error("The cart summary/total price is not correct")
@@ -56,7 +53,7 @@ class PurchaseItemTests(unittest.TestCase):
         self.cip.pressButtonProceedInCartSummary()
         result = self.cip.verifyAddressesPageLoads()
         assert result == True
-        if result==True:
+        if result:
             self.log.info("The address page is loaded.")
         else:
             self.log.error("The address page does not load!")
@@ -70,7 +67,7 @@ class PurchaseItemTests(unittest.TestCase):
         self.cip.confirmOrder()
         result = self.cip.verifyOrderIsComplete()
         assert result == True
-        if result==True:
+        if result:
             self.log.info("The Order is placed successfully.")
         else:
             self.log.error("The Order is NOT places successfully!")

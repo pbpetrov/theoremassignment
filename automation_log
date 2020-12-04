@@ -113,3 +113,240 @@
 11/26/2020 12:12:03 PM - ClothingItemPage - INFO: Clicked on element with locator: //button[@class='button btn btn-default button-medium'] locatorType: xpath
 11/26/2020 12:12:03 PM - ClothingItemPage - INFO: Element found with locator: //strong[contains(text(),'Your order on My Store is complete.')] and locator type: xpath
 11/26/2020 12:12:03 PM - PurchaseItemTests - INFO: The Order is placed successfully.
+11/27/2020 09:39:28 AM - CreateAccountTest - INFO: ***********************STARTING TEST RUN*****************************
+11/27/2020 09:42:22 AM - CreateAccountTest - INFO: ***********************STARTING TEST RUN*****************************
+11/27/2020 09:42:31 AM - SignInPage - INFO: Element found with locator: //a[contains(text(),'Sign in')] and locator type: xpath
+11/27/2020 09:42:32 AM - SignInPage - INFO: Clicked on element with locator: //a[contains(text(),'Sign in')] locatorType: xpath
+11/27/2020 09:42:32 AM - CreateAccountTest - INFO: The "Login - My Store" page has loaded successfully!
+11/27/2020 09:42:32 AM - CreateAccountPage - INFO: Element found with locator: #email_create and locator type: css
+11/27/2020 09:42:32 AM - CreateAccountPage - INFO: Element found with locator: #email_create and locator type: css
+11/27/2020 09:42:33 AM - CreateAccountPage - INFO: Sending udfbk@mail.com to element with locator #email_create
+11/27/2020 09:42:38 AM - CreateAccountPage - INFO: Element found with locator: //button[@id='SubmitCreate'] and locator type: xpath
+11/27/2020 09:42:38 AM - CreateAccountPage - INFO: Clicked on element with locator: //button[@id='SubmitCreate'] locatorType: xpath
+11/27/2020 09:42:43 AM - CreateAccountPage - INFO: Waiting for maximum :: 10 :: seconds for element to be clickable
+11/27/2020 09:42:43 AM - CreateAccountPage - INFO: Element appeared on the web page
+11/27/2020 09:42:43 AM - CreateAccountPage - INFO: Element found with locator: //h3[contains(text(),'Your personal information')] and locator type: xpath
+11/27/2020 09:42:43 AM - CreateAccountTest - INFO: The "Login - My Store" page has loaded successfully!
+11/27/2020 09:42:53 AM - CreateAccountPage - INFO: Element found with locator: //input[@id='customer_firstname'] and locator type: xpath
+11/27/2020 09:42:53 AM - CreateAccountPage - INFO: Sending Duffy to element with locator //input[@id='customer_firstname']
+11/27/2020 09:42:55 AM - CreateAccountPage - INFO: Element found with locator: //input[@id='customer_lastname'] and locator type: xpath
+11/27/2020 09:42:55 AM - CreateAccountPage - INFO: Sending Smith to element with locator //input[@id='customer_lastname']
+11/27/2020 09:42:57 AM - CreateAccountPage - INFO: Element found with locator: //input[@id='passwd'] and locator type: xpath
+11/27/2020 09:42:57 AM - CreateAccountPage - ERROR: Cannot send data to the element with locator: //input[@id='passwd'] locatorType: xpath
+11/27/2020 09:42:59 AM - CreateAccountPage - INFO: Element found with locator: //input[@id='address1'] and locator type: xpath
+11/27/2020 09:42:59 AM - CreateAccountPage - INFO: Sending 123 West Oak Rd to element with locator //input[@id='address1']
+11/27/2020 09:43:01 AM - CreateAccountPage - INFO: Element found with locator: //input[@id='city'] and locator type: xpath
+11/27/2020 09:43:01 AM - CreateAccountPage - INFO: Sending Sunnyvale to element with locator //input[@id='city']
+11/27/2020 09:43:03 AM - CreateAccountPage - INFO: Element found with locator: //select[@id='id_state'] and locator type: xpath
+11/27/2020 09:43:08 AM - CreateAccountPage - INFO: Element found with locator: //input[@id='postcode'] and locator type: xpath
+11/27/2020 09:43:08 AM - CreateAccountPage - ERROR: Cannot send data to the element with locator: //input[@id='postcode'] locatorType: xpath
+11/27/2020 09:43:10 AM - CreateAccountPage - INFO: Element found with locator: //input[@id='phone_mobile'] and locator type: xpath
+11/27/2020 09:43:10 AM - CreateAccountPage - ERROR: Cannot send data to the element with locator: //input[@id='phone_mobile'] locatorType: xpath
+11/27/2020 09:43:14 AM - CreateAccountPage - INFO: Element found with locator: //input[@id='alias'] and locator type: xpath
+11/27/2020 09:43:14 AM - CreateAccountPage - INFO: Sending ShoppingAddress to element with locator //input[@id='alias']
+11/27/2020 09:43:16 AM - CreateAccountPage - INFO: Element found with locator: //button[@id='submitAccount'] and locator type: xpath
+11/27/2020 09:43:18 AM - CreateAccountPage - INFO: Clicked on element with locator: //button[@id='submitAccount'] locatorType: xpath
+11/27/2020 09:43:20 AM - CreateAccountPage - INFO: Element found with locator: //span[contains(text(),'Order history and details')] and locator type: xpath
+11/27/2020 09:43:20 AM - CreateAccountTest - INFO: The new account is created successfully!
+11/27/2020 09:43:22 AM - SignInPage - INFO: Element found with locator: Sign out and locator type: link
+11/27/2020 09:43:23 AM - SignInPage - INFO: Clicked on element with locator: Sign out locatorType: link
+11/27/2020 09:43:23 AM - SignInPage - INFO: Element found with locator: //a[contains(text(),'Sign in')] and locator type: xpath
+11/27/2020 09:43:23 AM - CreateAccountTest - INFO: The log out was successful!
+11/27/2020 09:43:46 AM - SignInPage - INFO: Element found with locator: //a[contains(text(),'Sign in')] and locator type: xpath
+11/27/2020 09:43:48 AM - SignInPage - INFO: Clicked on element with locator: //a[contains(text(),'Sign in')] locatorType: xpath
+11/27/2020 09:43:48 AM - SigninTests - INFO: The "Login - My Store" page has loaded successfully!
+11/27/2020 09:43:48 AM - SignInPage - INFO: Element found with locator: #email and locator type: css
+11/27/2020 09:43:48 AM - SignInPage - INFO: Sending test_abc@mail.com to element with locator #email
+11/27/2020 09:43:48 AM - SignInPage - INFO: Element found with locator: #passwd and locator type: css
+11/27/2020 09:43:48 AM - SignInPage - INFO: Sending 123321 to element with locator #passwd
+11/27/2020 09:43:48 AM - SignInPage - INFO: Element found with locator: //button[@id='SubmitLogin'] and locator type: xpath
+11/27/2020 09:43:49 AM - SignInPage - INFO: Clicked on element with locator: //button[@id='SubmitLogin'] locatorType: xpath
+11/27/2020 09:43:49 AM - SignInPage - INFO: Element found with locator: //span[contains(text(),'Order history and details')] and locator type: xpath
+11/27/2020 09:43:49 AM - SigninTests - INFO: The login was successful!
+11/27/2020 09:43:49 AM - SignInPage - INFO: Element found with locator: Sign out and locator type: link
+11/27/2020 09:43:50 AM - SignInPage - INFO: Clicked on element with locator: Sign out locatorType: link
+11/27/2020 09:43:50 AM - SignInPage - INFO: Element found with locator: //a[contains(text(),'Sign in')] and locator type: xpath
+11/27/2020 09:43:50 AM - SigninTests - INFO: The login was successful!
+11/27/2020 09:44:02 AM - SignInPage - INFO: Element found with locator: //a[contains(text(),'Sign in')] and locator type: xpath
+11/27/2020 09:44:04 AM - SignInPage - INFO: Clicked on element with locator: //a[contains(text(),'Sign in')] locatorType: xpath
+11/27/2020 09:44:04 AM - SignInPage - INFO: Element found with locator: #email and locator type: css
+11/27/2020 09:44:04 AM - SignInPage - INFO: Sending test_abc@mail.com to element with locator #email
+11/27/2020 09:44:04 AM - SignInPage - INFO: Element found with locator: #passwd and locator type: css
+11/27/2020 09:44:04 AM - SignInPage - INFO: Sending 123321 to element with locator #passwd
+11/27/2020 09:44:04 AM - SignInPage - INFO: Element found with locator: //button[@id='SubmitLogin'] and locator type: xpath
+11/27/2020 09:44:05 AM - SignInPage - INFO: Clicked on element with locator: //button[@id='SubmitLogin'] locatorType: xpath
+11/27/2020 09:44:06 AM - HomePage - INFO: Element found with locator: Women and locator type: link
+11/27/2020 09:44:07 AM - HomePage - INFO: Clicked on element with locator: Women locatorType: link
+11/27/2020 09:44:09 AM - BrowseClothesDepartments - INFO: The "Women" section loads successfully!
+11/27/2020 09:44:09 AM - HomePage - INFO: Element found with locator: Dresses and locator type: link
+11/27/2020 09:44:11 AM - HomePage - INFO: Clicked on element with locator: Dresses locatorType: link
+11/27/2020 09:44:13 AM - BrowseClothesDepartments - INFO: The "Dresses" section loads successfully!
+11/27/2020 09:44:13 AM - HomePage - INFO: Element found with locator: //div[@id='block_top_menu']//li[3]/a[@title='T-shirts'] and locator type: xpath
+11/27/2020 09:44:14 AM - HomePage - INFO: Clicked on element with locator: //div[@id='block_top_menu']//li[3]/a[@title='T-shirts'] locatorType: xpath
+11/27/2020 09:44:16 AM - BrowseClothesDepartments - INFO: The "T-shirts" section loads successfully!
+11/27/2020 09:44:16 AM - HomePage - INFO: Element found with locator: //input[@id='search_query_top'] and locator type: xpath
+11/27/2020 09:44:16 AM - HomePage - INFO: Sending Blouse to element with locator //input[@id='search_query_top']
+11/27/2020 09:44:16 AM - HomePage - INFO: Element found with locator: //input[@id='search_query_top'] and locator type: xpath
+11/27/2020 09:44:17 AM - HomePage - INFO: Pressed ENTER for  element with locator //input[@id='search_query_top'] locatorType: xpath
+11/27/2020 09:44:27 AM - HomePage - INFO: Element found with locator: //div[@class='top-pagination-content clearfix']//div[contains(text(),'Showing 1 - 1 of 1 item')] and locator type: xpath
+11/27/2020 09:44:27 AM - HomePage - INFO: Element found with locator: //a[@title='Blouse' and contains(text(),'Blouse')] and locator type: xpath
+11/27/2020 09:44:27 AM - BrowseClothesDepartments - INFO: The search returns correct result!
+11/27/2020 09:44:38 AM - SignInPage - INFO: Element found with locator: //a[contains(text(),'Sign in')] and locator type: xpath
+11/27/2020 09:44:39 AM - SignInPage - INFO: Clicked on element with locator: //a[contains(text(),'Sign in')] locatorType: xpath
+11/27/2020 09:44:39 AM - SignInPage - INFO: Element found with locator: #email and locator type: css
+11/27/2020 09:44:39 AM - SignInPage - INFO: Sending test_abc@mail.com to element with locator #email
+11/27/2020 09:44:39 AM - SignInPage - INFO: Element found with locator: #passwd and locator type: css
+11/27/2020 09:44:39 AM - SignInPage - INFO: Sending 123321 to element with locator #passwd
+11/27/2020 09:44:40 AM - SignInPage - INFO: Element found with locator: //button[@id='SubmitLogin'] and locator type: xpath
+11/27/2020 09:44:41 AM - SignInPage - INFO: Clicked on element with locator: //button[@id='SubmitLogin'] locatorType: xpath
+11/27/2020 09:44:41 AM - HomePage - INFO: Element found with locator: //input[@id='search_query_top'] and locator type: xpath
+11/27/2020 09:44:41 AM - HomePage - INFO: Sending Blouse to element with locator //input[@id='search_query_top']
+11/27/2020 09:44:41 AM - HomePage - INFO: Element found with locator: //input[@id='search_query_top'] and locator type: xpath
+11/27/2020 09:44:42 AM - HomePage - INFO: Pressed ENTER for  element with locator //input[@id='search_query_top'] locatorType: xpath
+11/27/2020 09:44:42 AM - ClothingItemPage - INFO: Element found with locator: //a[@class='product-name' and @title='Blouse'] and locator type: xpath
+11/27/2020 09:44:43 AM - ClothingItemPage - INFO: Clicked on element with locator: //a[@class='product-name' and @title='Blouse'] locatorType: xpath
+11/27/2020 09:44:43 AM - ClothingItemPage - INFO: Element found with locator: //span[contains(text(),'Add to cart')] and locator type: xpath
+11/27/2020 09:44:43 AM - ClothingItemPage - INFO: Clicked on element with locator: //span[contains(text(),'Add to cart')] locatorType: xpath
+11/27/2020 09:44:43 AM - ClothingItemPage - INFO: Element found with locator: //span[contains(text(),'There is 1 item in your cart.')] and locator type: xpath
+11/27/2020 09:44:43 AM - PurchaseItemTests - INFO: The cart content is correct.
+11/27/2020 09:44:43 AM - ClothingItemPage - INFO: Element found with locator: //div[@class='button-container']//i[@class='icon-chevron-right right'] and locator type: xpath
+11/27/2020 09:44:44 AM - ClothingItemPage - INFO: Clicked on element with locator: //div[@class='button-container']//i[@class='icon-chevron-right right'] locatorType: xpath
+11/27/2020 09:44:44 AM - ClothingItemPage - INFO: Element found with locator: //span[@id='total_price' and contains(text(),'$29.00')] and locator type: xpath
+11/27/2020 09:44:44 AM - PurchaseItemTests - INFO: The cart summary/total price is correct
+11/27/2020 09:44:44 AM - ClothingItemPage - INFO: Element found with locator: //a[@class='button btn btn-default standard-checkout button-medium'] and locator type: xpath
+11/27/2020 09:44:45 AM - ClothingItemPage - INFO: Clicked on element with locator: //a[@class='button btn btn-default standard-checkout button-medium'] locatorType: xpath
+11/27/2020 09:44:45 AM - ClothingItemPage - INFO: Element found with locator: //h1[contains(text(),'Addresses')] and locator type: xpath
+11/27/2020 09:44:45 AM - PurchaseItemTests - INFO: The address page is loaded.
+11/27/2020 09:44:45 AM - ClothingItemPage - INFO: Element found with locator: //button[@name='processAddress'] and locator type: xpath
+11/27/2020 09:44:46 AM - ClothingItemPage - INFO: Clicked on element with locator: //button[@name='processAddress'] locatorType: xpath
+11/27/2020 09:44:46 AM - ClothingItemPage - INFO: Element found with locator: //input[@id='cgv'] and locator type: xpath
+11/27/2020 09:44:46 AM - ClothingItemPage - INFO: Clicked on element with locator: //input[@id='cgv'] locatorType: xpath
+11/27/2020 09:44:46 AM - ClothingItemPage - INFO: Element found with locator: //button[@name='processCarrier'] and locator type: xpath
+11/27/2020 09:44:47 AM - ClothingItemPage - INFO: Clicked on element with locator: //button[@name='processCarrier'] locatorType: xpath
+11/27/2020 09:44:47 AM - ClothingItemPage - INFO: Element found with locator: //a[@class='bankwire'] and locator type: xpath
+11/27/2020 09:44:47 AM - ClothingItemPage - INFO: Clicked on element with locator: //a[@class='bankwire'] locatorType: xpath
+11/27/2020 09:44:48 AM - ClothingItemPage - INFO: Element found with locator: //button[@class='button btn btn-default button-medium'] and locator type: xpath
+11/27/2020 09:44:49 AM - ClothingItemPage - INFO: Clicked on element with locator: //button[@class='button btn btn-default button-medium'] locatorType: xpath
+11/27/2020 09:44:49 AM - ClothingItemPage - INFO: Element found with locator: //strong[contains(text(),'Your order on My Store is complete.')] and locator type: xpath
+11/27/2020 09:44:49 AM - PurchaseItemTests - INFO: The Order is placed successfully.
+11/27/2020 09:48:06 AM - CreateAccountTest - INFO: ***********************STARTING TEST RUN*****************************
+11/27/2020 09:48:07 AM - PurchaseItemTests - INFO: ***********************STARTING TEST RUN*****************************
+11/27/2020 09:48:07 AM - PurchaseItemTests - INFO: ***********************STARTING TEST RUN*****************************
+11/27/2020 09:48:16 AM - SignInPage - INFO: Element found with locator: //a[contains(text(),'Sign in')] and locator type: xpath
+11/27/2020 09:48:17 AM - SignInPage - INFO: Clicked on element with locator: //a[contains(text(),'Sign in')] locatorType: xpath
+11/27/2020 09:48:17 AM - CreateAccountTest - INFO: The "Login - My Store" page has loaded successfully!
+11/27/2020 09:48:17 AM - CreateAccountPage - INFO: Element found with locator: #email_create and locator type: css
+11/27/2020 09:48:17 AM - CreateAccountPage - INFO: Element found with locator: #email_create and locator type: css
+11/27/2020 09:48:17 AM - CreateAccountPage - INFO: Sending pgghv@mail.com to element with locator #email_create
+11/27/2020 09:48:22 AM - CreateAccountPage - INFO: Element found with locator: //button[@id='SubmitCreate'] and locator type: xpath
+11/27/2020 09:48:22 AM - CreateAccountPage - INFO: Clicked on element with locator: //button[@id='SubmitCreate'] locatorType: xpath
+11/27/2020 09:48:27 AM - CreateAccountPage - INFO: Waiting for maximum :: 10 :: seconds for element to be clickable
+11/27/2020 09:48:27 AM - CreateAccountPage - INFO: Element appeared on the web page
+11/27/2020 09:48:27 AM - CreateAccountPage - INFO: Element found with locator: //h3[contains(text(),'Your personal information')] and locator type: xpath
+11/27/2020 09:48:27 AM - CreateAccountTest - INFO: The "Login - My Store" page has loaded successfully!
+11/27/2020 09:48:37 AM - CreateAccountPage - INFO: Element found with locator: //input[@id='customer_firstname'] and locator type: xpath
+11/27/2020 09:48:37 AM - CreateAccountPage - INFO: Sending Duffy to element with locator //input[@id='customer_firstname']
+11/27/2020 09:48:39 AM - CreateAccountPage - INFO: Element found with locator: //input[@id='customer_lastname'] and locator type: xpath
+11/27/2020 09:48:39 AM - CreateAccountPage - INFO: Sending Smith to element with locator //input[@id='customer_lastname']
+11/27/2020 09:48:41 AM - CreateAccountPage - INFO: Element found with locator: //input[@id='passwd'] and locator type: xpath
+11/27/2020 09:48:42 AM - CreateAccountPage - ERROR: Cannot send data to the element with locator: //input[@id='passwd'] locatorType: xpath
+11/27/2020 09:48:44 AM - CreateAccountPage - INFO: Element found with locator: //input[@id='address1'] and locator type: xpath
+11/27/2020 09:48:44 AM - CreateAccountPage - INFO: Sending 123 West Oak Rd to element with locator //input[@id='address1']
+11/27/2020 09:48:46 AM - CreateAccountPage - INFO: Element found with locator: //input[@id='city'] and locator type: xpath
+11/27/2020 09:48:46 AM - CreateAccountPage - INFO: Sending Sunnyvale to element with locator //input[@id='city']
+11/27/2020 09:48:48 AM - CreateAccountPage - INFO: Element found with locator: //select[@id='id_state'] and locator type: xpath
+11/27/2020 09:48:52 AM - CreateAccountPage - INFO: Element found with locator: //input[@id='postcode'] and locator type: xpath
+11/27/2020 09:48:52 AM - CreateAccountPage - ERROR: Cannot send data to the element with locator: //input[@id='postcode'] locatorType: xpath
+11/27/2020 09:48:54 AM - CreateAccountPage - INFO: Element found with locator: //input[@id='phone_mobile'] and locator type: xpath
+11/27/2020 09:48:54 AM - CreateAccountPage - ERROR: Cannot send data to the element with locator: //input[@id='phone_mobile'] locatorType: xpath
+11/27/2020 09:48:58 AM - CreateAccountPage - INFO: Element found with locator: //input[@id='alias'] and locator type: xpath
+11/27/2020 09:48:58 AM - CreateAccountPage - INFO: Sending ShoppingAddress to element with locator //input[@id='alias']
+11/27/2020 09:49:00 AM - CreateAccountPage - INFO: Element found with locator: //button[@id='submitAccount'] and locator type: xpath
+11/27/2020 09:49:02 AM - CreateAccountPage - INFO: Clicked on element with locator: //button[@id='submitAccount'] locatorType: xpath
+11/27/2020 09:49:04 AM - CreateAccountPage - INFO: Element found with locator: //span[contains(text(),'Order history and details')] and locator type: xpath
+11/27/2020 09:49:04 AM - CreateAccountTest - INFO: The new account is created successfully!
+11/27/2020 09:49:06 AM - SignInPage - INFO: Element found with locator: Sign out and locator type: link
+11/27/2020 09:49:07 AM - SignInPage - INFO: Clicked on element with locator: Sign out locatorType: link
+11/27/2020 09:49:07 AM - SignInPage - INFO: Element found with locator: //a[contains(text(),'Sign in')] and locator type: xpath
+11/27/2020 09:49:07 AM - CreateAccountTest - INFO: The log out was successful!
+11/27/2020 09:49:30 AM - SignInPage - INFO: Element found with locator: //a[contains(text(),'Sign in')] and locator type: xpath
+11/27/2020 09:49:31 AM - SignInPage - INFO: Clicked on element with locator: //a[contains(text(),'Sign in')] locatorType: xpath
+11/27/2020 09:49:31 AM - SigninTests - INFO: The "Login - My Store" page has loaded successfully!
+11/27/2020 09:49:31 AM - SignInPage - INFO: Element found with locator: #email and locator type: css
+11/27/2020 09:49:31 AM - SignInPage - INFO: Sending test_abc@mail.com to element with locator #email
+11/27/2020 09:49:31 AM - SignInPage - INFO: Element found with locator: #passwd and locator type: css
+11/27/2020 09:49:32 AM - SignInPage - INFO: Sending 123321 to element with locator #passwd
+11/27/2020 09:49:32 AM - SignInPage - INFO: Element found with locator: //button[@id='SubmitLogin'] and locator type: xpath
+11/27/2020 09:49:33 AM - SignInPage - INFO: Clicked on element with locator: //button[@id='SubmitLogin'] locatorType: xpath
+11/27/2020 09:49:33 AM - SignInPage - INFO: Element found with locator: //span[contains(text(),'Order history and details')] and locator type: xpath
+11/27/2020 09:49:33 AM - SigninTests - INFO: The login was successful!
+11/27/2020 09:49:33 AM - SignInPage - INFO: Element found with locator: Sign out and locator type: link
+11/27/2020 09:49:35 AM - SignInPage - INFO: Clicked on element with locator: Sign out locatorType: link
+11/27/2020 09:49:35 AM - SignInPage - INFO: Element found with locator: //a[contains(text(),'Sign in')] and locator type: xpath
+11/27/2020 09:49:35 AM - SigninTests - INFO: The login was successful!
+11/27/2020 09:49:48 AM - SignInPage - INFO: Element found with locator: //a[contains(text(),'Sign in')] and locator type: xpath
+11/27/2020 09:49:50 AM - SignInPage - INFO: Clicked on element with locator: //a[contains(text(),'Sign in')] locatorType: xpath
+11/27/2020 09:49:50 AM - SignInPage - INFO: Element found with locator: #email and locator type: css
+11/27/2020 09:49:50 AM - SignInPage - INFO: Sending test_abc@mail.com to element with locator #email
+11/27/2020 09:49:50 AM - SignInPage - INFO: Element found with locator: #passwd and locator type: css
+11/27/2020 09:49:50 AM - SignInPage - INFO: Sending 123321 to element with locator #passwd
+11/27/2020 09:49:50 AM - SignInPage - INFO: Element found with locator: //button[@id='SubmitLogin'] and locator type: xpath
+11/27/2020 09:49:52 AM - SignInPage - INFO: Clicked on element with locator: //button[@id='SubmitLogin'] locatorType: xpath
+11/27/2020 09:49:52 AM - HomePage - INFO: Element found with locator: Women and locator type: link
+11/27/2020 09:49:55 AM - HomePage - INFO: Clicked on element with locator: Women locatorType: link
+11/27/2020 09:49:57 AM - BrowseClothesDepartments - INFO: The "Women" section loads successfully!
+11/27/2020 09:49:57 AM - HomePage - INFO: Element found with locator: Dresses and locator type: link
+11/27/2020 09:49:58 AM - HomePage - INFO: Clicked on element with locator: Dresses locatorType: link
+11/27/2020 09:50:00 AM - BrowseClothesDepartments - INFO: The "Dresses" section loads successfully!
+11/27/2020 09:50:00 AM - HomePage - INFO: Element found with locator: //div[@id='block_top_menu']//li[3]/a[@title='T-shirts'] and locator type: xpath
+11/27/2020 09:50:01 AM - HomePage - INFO: Clicked on element with locator: //div[@id='block_top_menu']//li[3]/a[@title='T-shirts'] locatorType: xpath
+11/27/2020 09:50:03 AM - BrowseClothesDepartments - INFO: The "T-shirts" section loads successfully!
+11/27/2020 09:50:03 AM - HomePage - INFO: Element found with locator: //input[@id='search_query_top'] and locator type: xpath
+11/27/2020 09:50:03 AM - HomePage - INFO: Sending Blouse to element with locator //input[@id='search_query_top']
+11/27/2020 09:50:03 AM - HomePage - INFO: Element found with locator: //input[@id='search_query_top'] and locator type: xpath
+11/27/2020 09:50:05 AM - HomePage - INFO: Pressed ENTER for  element with locator //input[@id='search_query_top'] locatorType: xpath
+11/27/2020 09:50:15 AM - HomePage - INFO: Element found with locator: //div[@class='top-pagination-content clearfix']//div[contains(text(),'Showing 1 - 1 of 1 item')] and locator type: xpath
+11/27/2020 09:50:15 AM - HomePage - INFO: Element found with locator: //a[@title='Blouse' and contains(text(),'Blouse')] and locator type: xpath
+11/27/2020 09:50:15 AM - BrowseClothesDepartments - INFO: The search returns correct result!
+11/27/2020 09:50:26 AM - SignInPage - INFO: Element found with locator: //a[contains(text(),'Sign in')] and locator type: xpath
+11/27/2020 09:50:28 AM - SignInPage - INFO: Clicked on element with locator: //a[contains(text(),'Sign in')] locatorType: xpath
+11/27/2020 09:50:28 AM - SignInPage - INFO: Element found with locator: #email and locator type: css
+11/27/2020 09:50:28 AM - SignInPage - INFO: Sending test_abc@mail.com to element with locator #email
+11/27/2020 09:50:28 AM - SignInPage - INFO: Element found with locator: #passwd and locator type: css
+11/27/2020 09:50:28 AM - SignInPage - INFO: Sending 123321 to element with locator #passwd
+11/27/2020 09:50:28 AM - SignInPage - INFO: Element found with locator: //button[@id='SubmitLogin'] and locator type: xpath
+11/27/2020 09:50:29 AM - SignInPage - INFO: Clicked on element with locator: //button[@id='SubmitLogin'] locatorType: xpath
+11/27/2020 09:50:29 AM - HomePage - INFO: Element found with locator: //input[@id='search_query_top'] and locator type: xpath
+11/27/2020 09:50:29 AM - HomePage - INFO: Sending Blouse to element with locator //input[@id='search_query_top']
+11/27/2020 09:50:29 AM - HomePage - INFO: Element found with locator: //input[@id='search_query_top'] and locator type: xpath
+11/27/2020 09:50:30 AM - HomePage - INFO: Pressed ENTER for  element with locator //input[@id='search_query_top'] locatorType: xpath
+11/27/2020 09:50:31 AM - ClothingItemPage - INFO: Element found with locator: //a[@class='product-name' and @title='Blouse'] and locator type: xpath
+11/27/2020 09:50:32 AM - ClothingItemPage - INFO: Clicked on element with locator: //a[@class='product-name' and @title='Blouse'] locatorType: xpath
+11/27/2020 09:50:32 AM - ClothingItemPage - INFO: Element found with locator: //span[contains(text(),'Add to cart')] and locator type: xpath
+11/27/2020 09:50:32 AM - ClothingItemPage - INFO: Clicked on element with locator: //span[contains(text(),'Add to cart')] locatorType: xpath
+11/27/2020 09:50:32 AM - ClothingItemPage - INFO: Element found with locator: //span[contains(text(),'There is 1 item in your cart.')] and locator type: xpath
+11/27/2020 09:50:32 AM - PurchaseItemTests - INFO: The cart content is correct.
+11/27/2020 09:50:32 AM - PurchaseItemTests - INFO: The cart content is correct.
+11/27/2020 09:50:32 AM - ClothingItemPage - INFO: Element found with locator: //div[@class='button-container']//i[@class='icon-chevron-right right'] and locator type: xpath
+11/27/2020 09:50:34 AM - ClothingItemPage - INFO: Clicked on element with locator: //div[@class='button-container']//i[@class='icon-chevron-right right'] locatorType: xpath
+11/27/2020 09:50:34 AM - ClothingItemPage - INFO: Element found with locator: //span[@id='total_price' and contains(text(),'$29.00')] and locator type: xpath
+11/27/2020 09:50:34 AM - PurchaseItemTests - INFO: The cart summary/total price is correct
+11/27/2020 09:50:34 AM - PurchaseItemTests - INFO: The cart summary/total price is correct
+11/27/2020 09:50:34 AM - ClothingItemPage - INFO: Element found with locator: //a[@class='button btn btn-default standard-checkout button-medium'] and locator type: xpath
+11/27/2020 09:50:35 AM - ClothingItemPage - INFO: Clicked on element with locator: //a[@class='button btn btn-default standard-checkout button-medium'] locatorType: xpath
+11/27/2020 09:50:35 AM - ClothingItemPage - INFO: Element found with locator: //h1[contains(text(),'Addresses')] and locator type: xpath
+11/27/2020 09:50:35 AM - PurchaseItemTests - INFO: The address page is loaded.
+11/27/2020 09:50:35 AM - PurchaseItemTests - INFO: The address page is loaded.
+11/27/2020 09:50:35 AM - ClothingItemPage - INFO: Element found with locator: //button[@name='processAddress'] and locator type: xpath
+11/27/2020 09:50:36 AM - ClothingItemPage - INFO: Clicked on element with locator: //button[@name='processAddress'] locatorType: xpath
+11/27/2020 09:50:36 AM - ClothingItemPage - INFO: Element found with locator: //input[@id='cgv'] and locator type: xpath
+11/27/2020 09:50:36 AM - ClothingItemPage - INFO: Clicked on element with locator: //input[@id='cgv'] locatorType: xpath
+11/27/2020 09:50:36 AM - ClothingItemPage - INFO: Element found with locator: //button[@name='processCarrier'] and locator type: xpath
+11/27/2020 09:50:37 AM - ClothingItemPage - INFO: Clicked on element with locator: //button[@name='processCarrier'] locatorType: xpath
+11/27/2020 09:50:37 AM - ClothingItemPage - INFO: Element found with locator: //a[@class='bankwire'] and locator type: xpath
+11/27/2020 09:50:39 AM - ClothingItemPage - INFO: Clicked on element with locator: //a[@class='bankwire'] locatorType: xpath
+11/27/2020 09:50:39 AM - ClothingItemPage - INFO: Element found with locator: //button[@class='button btn btn-default button-medium'] and locator type: xpath
+11/27/2020 09:50:41 AM - ClothingItemPage - INFO: Clicked on element with locator: //button[@class='button btn btn-default button-medium'] locatorType: xpath
+11/27/2020 09:50:41 AM - ClothingItemPage - INFO: Element found with locator: //strong[contains(text(),'Your order on My Store is complete.')] and locator type: xpath
+11/27/2020 09:50:41 AM - PurchaseItemTests - INFO: The Order is placed successfully.
+11/27/2020 09:50:41 AM - PurchaseItemTests - INFO: The Order is placed successfully.

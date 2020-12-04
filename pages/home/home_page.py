@@ -7,28 +7,28 @@ import time
 import utilities.custom_logger as cl
 import logging
 
-class HomePage(SeleniumDriver):
 
+class HomePage(SeleniumDriver):
     log = cl.customLogger(logging.DEBUG)
 
     def __init__(self, driver):
         super().__init__(driver)
         self.driver = driver
 
-# SEARCH STRING
+    # SEARCH STRING
     _search_string = "Blouse"
 
-# LOCATORS
-    _cart_link = "//b[contains(text(),'Cart')]" # xpath
-    _women_link = "Women" # link
-    _dresses_link = "Dresses" # link
-    _t_shirts_link = "//div[@id='block_top_menu']//li[3]/a[@title='T-shirts']" # link
-    _search_txt_box = "//input[@id='search_query_top']" # xpath
-    _search_button = "//span[contains(text(),'Search')]" # xpath
-    _search_result1 = "//div[@class='top-pagination-content clearfix']//div[contains(text(),'Showing 1 - 1 of 1 item')]" # xpath
-    _search_result2 = "//a[@title='Blouse' and contains(text(),'Blouse')]" #xpath
+    # LOCATORS
+    _cart_link = "//b[contains(text(),'Cart')]"  # xpath
+    _women_link = "Women"  # link
+    _dresses_link = "Dresses"  # link
+    _t_shirts_link = "//div[@id='block_top_menu']//li[3]/a[@title='T-shirts']"  # link
+    _search_txt_box = "//input[@id='search_query_top']"  # xpath
+    _search_button = "//span[contains(text(),'Search')]"  # xpath
+    _search_result1 = "//div[@class='top-pagination-content clearfix']//div[contains(text(),'Showing 1 - 1 of 1 item')]"  # xpath
+    _search_result2 = "//a[@title='Blouse' and contains(text(),'Blouse')]"  # xpath
 
-# ACTIONS WITH PAGE OBJECTS
+    # ACTIONS WITH PAGE OBJECTS
 
     def clickWomen(self):
         self.elementClick(self._women_link, locatorType="link")
@@ -52,7 +52,7 @@ class HomePage(SeleniumDriver):
         else:
             return False
 
-    def clickTshirts(self):
+    def clickTShirts(self):
         self.elementClick(self._t_shirts_link, locatorType="xpath")
         time.sleep(2)
 
@@ -72,7 +72,7 @@ class HomePage(SeleniumDriver):
     # def enterWomenSearchString(self):
     #     self.sendKeys(self._search_string_women, self._search_txt_box, "xpath")
     #
-    # def enterTshirtsSearchString(self):
+    # def enterTShirtsSearchString(self):
     #     self.sendKeys(self._search_string_tshirt, self._search_txt_box, "xpath")
 
     def searchForItem(self):
